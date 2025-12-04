@@ -1,0 +1,8 @@
+#root {
+  background-color: var(--color-white);
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}
