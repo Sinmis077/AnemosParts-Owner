@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { modelService } from "../services/modelService";
 import toast from "react-hot-toast";
+import { formatError } from '@/app/utils/errorformatter.js';
 
 export const useModels = () => {
     const { data, isLoading, error } = useQuery({
@@ -16,7 +17,7 @@ export const useModels = () => {
     return {
         models: data ? data.models : [],
         isLoading,
-        error: error?.response.data
+        error: formatError(error),
     }    
 }
 
@@ -33,7 +34,7 @@ export const useCreateModel = () => {
             toast.success('Model added successfully!')
         },
         onError: (error) => {
-            toast.error(`Failed to make model \n\r${error.message}`)
+            toast.error(`Failed to make model \n\r${formatError(error)}`)
         }
     })
 }
@@ -51,7 +52,7 @@ export const useUpdateModel = () => {
             toast.success("Model updated successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to update model \n\r${error.message}`)
+            toast.error(`Failed to update model \n\r${formatError(error)}`)
         }
     })
 }
@@ -69,7 +70,7 @@ export const useDeleteModel = () => {
             toast.success("Model deleted successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to delete model \n\r${error.message}`)
+            toast.error(`Failed to delete model \n\r${formatError(error)}`)
         }
     })
 }

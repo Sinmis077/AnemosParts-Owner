@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { brandService } from "../services/brandService";
 import toast from "react-hot-toast";
+import { formatError } from '@/app/utils/errorformatter.js';
 
 export const useBrands = () => {
     const { data, isLoading, error } = useQuery({
@@ -16,7 +17,7 @@ export const useBrands = () => {
     return {
         brands: data ? data.brands : [],
         isLoading,
-        error: error?.response.data
+        error: formatError(error),
     }    
 }
 
@@ -33,7 +34,7 @@ export const useCreateBrand = () => {
             toast.success('Brand added successfully!')
         },
         onError: (error) => {
-            toast.error(`Failed to make brand \n\r${error.message}`)
+            toast.error(`Failed to make brand \n\r${formatError(error)}`);
         }
     })
 }
@@ -51,7 +52,7 @@ export const useUpdateBrand = () => {
             toast.success("Brand updated successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to update brand \n\r${error.message}`)
+            toast.error(`Failed to update brand \n\r${formatError(error)}`);
         }
     })
 }
@@ -69,7 +70,7 @@ export const useDeleteBrand = () => {
             toast.success("Brand deleted successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to delete brand \n\r${error.message}`)
+            toast.error(`Failed to delete brand \n\r${formatError(error)}`);
         }
     })
 }

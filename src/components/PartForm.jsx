@@ -127,7 +127,7 @@ export function PartForm({part, onClose}) {
     };
 
     const onSubmit = async (data) => {
-        if (part.id) {
+        if (part?.id) {
             updatePart.mutate({id: part.id, part: data});
         } else {
             createPart.mutate(data);

@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { partService } from "../services/partService";
 import toast from "react-hot-toast";
+import { formatError } from '@/app/utils/errorformatter.js';
 
 export const useParts = () => {
     const { data, isLoading, error } = useQuery({
@@ -16,7 +17,7 @@ export const useParts = () => {
     return {
         catalog: data ? data.parts : [],
         isLoading,
-        error: error?.response.data
+        error: formatError(error),
     }    
 }
 
@@ -35,7 +36,7 @@ export function usePart(id) {
     return {
         part: data,
         isLoading,
-        error: error?.response.data
+        error: formatError(error),
     }
 } 
 
@@ -52,7 +53,7 @@ export const useCreatePart = () => {
             toast.success('Part added successfully!')
         },
         onError: (error) => {
-            toast.error(`Failed to make part \n\r${error.message}`)
+            toast.error(`Failed to make part \n\r${formatError(error)}`)
         }
     })
 }
@@ -70,7 +71,7 @@ export const useUpdatePart = () => {
             toast.success("Part updated successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to update part \n\r${error.message}`)
+            toast.error(`Failed to update part \n\r${formatError(error)}`)
         }
     })
 }
@@ -88,7 +89,8 @@ export const useDeletePart = () => {
             toast.success("Part deleted successfully!")
         },
         onError: (error) => {
-            toast.error(`Failed to delete part \n\r${error.message}`)
+					console.log(error)
+            toast.error(`Failed to delete part \n\r${formatError(error)}`)
         }
     })
 }
