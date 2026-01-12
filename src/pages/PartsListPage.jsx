@@ -8,7 +8,7 @@ import { PartForm } from "@/components/PartForm";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
 
-export function PartsWarehousePage() {
+export function PartsListPage() {
   const Parts = useParts();
   const DeletePart = useDeletePart();
   

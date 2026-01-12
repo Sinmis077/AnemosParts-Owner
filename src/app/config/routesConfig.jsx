@@ -6,11 +6,15 @@ import { CreateModelPage } from "@/pages/CreateModelPage";
 import { CreatePartPage } from "@/pages/CreatePartPage";
 import { DashboardPage } from "@/pages/DashboardPage";
 import { ModelsListPage } from "@/pages/ModelListPage";
-import { PartsWarehousePage } from "@/pages/PartsWarehousePage";
+import { PartsListPage } from "@/pages/PartsListPage.jsx";
+import { LoginPage } from '@/pages/LoginPage.jsx';
+import { redirect } from 'react-router-dom';
+import { api } from '@/app/services/api.js';
 
 export const routesConfig = [
   {
     element: <Layout />,
+    loader: loaderHandle,
     children: [
       {
         path: "/",
@@ -18,7 +22,7 @@ export const routesConfig = [
       },
       {
         path: "/parts",
-        element: <PartsWarehousePage />,
+        element: <PartsListPage />,
       },
       {
         path: "/parts/add",
@@ -42,4 +46,31 @@ export const routesConfig = [
       }
     ],
   },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
 ];
+
+async function isLoggedIn() {
+  try {
+    console.log("Challenging user authentication");
+
+    let status = 403;
+
+    await api.options('/parts').then((response) => { status = response.status });
+
+    return status === 200;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function loaderHandle() {
+  if(await isLoggedIn()) {
+    return;
+  }
+
+  console.log('Attempting to send user to /login')
+  throw redirect("/login");
+}
