@@ -10,6 +10,7 @@ import { PartsListPage } from "@/pages/PartsListPage.jsx";
 import { LoginPage } from '@/pages/LoginPage.jsx';
 import { redirect } from 'react-router-dom';
 import { api } from '@/app/services/api.js';
+import { OrdersPage } from '@/pages/OrdersPage.jsx';
 
 export const routesConfig = [
   {
@@ -19,6 +20,10 @@ export const routesConfig = [
       {
         path: "/",
         element: <DashboardPage />,
+      },
+      {
+        path: "/orders",
+        element: <OrdersPage />,
       },
       {
         path: "/parts",

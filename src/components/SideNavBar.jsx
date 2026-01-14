@@ -28,6 +28,8 @@ import {
 import { Link } from 'react-router-dom';
 import { api } from '@/app/services/api.js';
 import { Button } from '@/components/ui/button.jsx';
+import { Item, ItemContent, ItemMedia, ItemTitle } from '@/components/ui/item.jsx';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar.jsx';
 
 // Menu items
 const items = [
@@ -177,6 +179,19 @@ export function SideNavBar() {
 				</SidebarGroup>
 			</SidebarContent>
 			<SidebarFooter>
+				<Item variant="outline">
+					<ItemMedia>
+						<Avatar className="size-10">
+							<AvatarImage src="./avatar.png" />
+							<AvatarFallback>Anemos</AvatarFallback>
+						</Avatar>
+					</ItemMedia>
+					<ItemContent>
+						<ItemTitle>
+							Antonis Panagi
+						</ItemTitle>
+					</ItemContent>
+				</Item>
 				<Button variant="secondary" onClick={async () => {
 					await api.delete('/auth');
 				}} asChild>
